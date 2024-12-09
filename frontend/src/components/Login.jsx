@@ -1,13 +1,22 @@
 import { SquareUserRound, Lock, LogIn } from "lucide-react";
 import React, { useState } from "react";
+import { Link } from "react-router";
+import useLogin from "../hooks/useLogin";
 export default function Login() {
   const input_style =
     "text-base px-4 h-12 md:w-1/3 text-wrap text-neutral-800 placeholder:text-neutral-700 placeholder:italic bg-transparent border-2 rounded  ";
+
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
-  const handleLogin = (e) => {};
+
+  const { login } = useLogin();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await login(loginData);
+  };
+
   return (
     <div className="flex flex-col w-full gap-3 m-2">
       <div className="text-4xl flex items-center gap-2 font-bold">
@@ -24,7 +33,7 @@ export default function Login() {
         placeholder="Username"
         value={loginData.username}
         onChange={(e) => {
-          setLoginData({ username: e.target.value });
+          setLoginData({ ...loginData, username: e.target.value });
         }}
       />
       <div className="text-xl font-medium flex gap-2">
@@ -37,7 +46,7 @@ export default function Login() {
         placeholder="Password"
         value={loginData.password}
         onChange={(e) => {
-          setLoginData({ password: e.target.value });
+          setLoginData({ ...loginData, password: e.target.value });
         }}
       />
       <div
@@ -46,7 +55,12 @@ export default function Login() {
       >
         Login
       </div>
-      <div>Dont have an account? SignUp</div>
+      <div>
+        Dont have an account?{" "}
+        <Link to="/signup">
+          <div className="underline font-bold inline-block"> SignUp</div>
+        </Link>
+      </div>
     </div>
   );
 }

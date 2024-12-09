@@ -8,8 +8,19 @@
 </head>
 
 <body>
-    <div id="root" class="m-0 p-0 flex justify-center items-center text-lg bg-white"></div>
+    <div id="root" class="m-0 p-0 flex justify-center items-center text-lg"></div>
     <script type="module" src="/src/main.jsx"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // set standard white theme
+        if (!localStorage.getItem("data-theme")) {
+            localStorage.setItem("data-theme", "cmyk");
+        }
+        //otherwise whatever was choosen last time
+        let theme = localStorage.getItem("data-theme");
+        document.querySelector("html").setAttribute("data-theme", theme);
+    });
+</script>
 
 </html>

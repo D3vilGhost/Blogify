@@ -1,4 +1,6 @@
 import { Calendar } from "lucide-react";
+import { toast } from "react-toastify";
+
 export default function MiniBlog({ image, title, summary, date, read_more }) {
   return (
     <div>
@@ -13,7 +15,12 @@ export default function MiniBlog({ image, title, summary, date, read_more }) {
             <div className="text-neutral-500 flex gap-2">
               <Calendar size={32} strokeWidth={1.5} /> {date}
             </div>
-            <div className="btn btn-ghost bg-neutral-200">
+            <div
+              className="btn btn-ghost bg-neutral-200"
+              onClick={() => {
+                toast.success("hey", { theme: "dark" });
+              }}
+            >
               Read More Here ...
             </div>
           </div>

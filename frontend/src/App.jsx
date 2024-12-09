@@ -1,29 +1,43 @@
+import { Routes, Route, Navigate } from "react-router";
 import NavBar from "./components/NavBar";
-import MinBlog from "./components/MiniBlog";
 import ViewBlog from "./components/ViewBlog";
 import CreateNewBlog from "./components/CreateNewBlog";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup";
 import EditBlog from "./components/EditBlog.jsx";
 import ProfilePage from "./components/ProfilePage.jsx";
+import MiniBlog from "./components/MiniBlog";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 export default function App() {
-  let summary =
-    "Lorem ipsumvdgjvchvdsjcve  cjxwvwbj/* xkbhxdxjhb,xjbd,jb */ dolor, sit amet consectetur adipisicing elit. Veniam, harum! Esse, beatae laboriosam! Veniam optio at similique natus hic mollitia ducimus, illum modi ea, est in quaerat, libero labore exercitationem!";
   return (
     <div className="md:w-3/4">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        limit={0}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="dark"
+        transition:Bounce
+        stacked={true}
+      />
       <NavBar />
-      {/* <ViewBlog
-        title="Welcome to Blogify!"
-        image="02jpg.jpg"
-        content={summary}
-        author="developer"
-        date="01/12/24"
-      /> */}
-      {/* <CreateNewBlog /> */}
-      {/* <Login /> */}
-      {/* <Signup /> */}
-      {/* <EditBlog /> */}
-      <ProfilePage />
+      <Routes>
+        <Route path="/home" element={<MiniBlog />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/blog/view/:blogId" element={<ViewBlog />} />
+        <Route path="/blog/edit/:blogId" element={<EditBlog />} />
+        <Route path="/blog/create" element={<CreateNewBlog />} />
+        <Route path="/*" element={<Navigate to="/home" />} />
+      </Routes>
     </div>
   );
 }
