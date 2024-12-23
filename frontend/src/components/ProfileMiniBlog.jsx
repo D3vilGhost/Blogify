@@ -1,6 +1,6 @@
 import { Newspaper } from "lucide-react";
-
-export default function ProfileMiniBlog({ title, summary }) {
+import { Link } from "react-router";
+export default function ProfileMiniBlog({ title, summary, blogId = 123 }) {
   return (
     <div>
       <div role="alert" className="alert shadow-lg">
@@ -10,8 +10,12 @@ export default function ProfileMiniBlog({ title, summary }) {
           <div className="text-xs">{summary}</div>
         </div>
         <div>
-          <button className="m-2 btn btn-sm btn-primary">View</button>
-          <button className="m-2 btn btn-sm btn-warning">Update</button>
+          <Link to={`/blog/view/${blogId}`}>
+            <button className="m-2 btn btn-sm btn-primary">View</button>
+          </Link>
+          <Link to={`/blog/edit/${blogId}`}>
+            <button className="m-2 btn btn-sm btn-warning">Update</button>
+          </Link>
         </div>
       </div>
     </div>

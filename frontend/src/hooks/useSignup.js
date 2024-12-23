@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useAuthContext } from "../context/useAuthContext.js";
+import useAuthContext from "../context/useAuthContext.js";
 
 export default function useSignup() {
   const { setAuthUser } = useAuthContext();
@@ -20,7 +20,7 @@ export default function useSignup() {
       if (data.error) {
         throw new Error(data.error);
       }
-      localStorage.setItem("user-data", JSON.stringify(data));
+      localStorage.setItem("username", JSON.stringify(data.username));
       setAuthUser(data);
 
       toast.update(toastId, {

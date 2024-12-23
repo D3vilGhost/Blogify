@@ -1,7 +1,6 @@
 import { Calendar } from "lucide-react";
-import { toast } from "react-toastify";
-
-export default function MiniBlog({ image, title, summary, date, read_more }) {
+import { Link } from "react-router";
+export default function MiniBlog({ image, title, summary, date, blogId }) {
   return (
     <div>
       <div className="flex flex-row gap-3 m-2 max-h-60">
@@ -15,14 +14,12 @@ export default function MiniBlog({ image, title, summary, date, read_more }) {
             <div className="text-neutral-500 flex gap-2">
               <Calendar size={32} strokeWidth={1.5} /> {date}
             </div>
-            <div
-              className="btn btn-ghost bg-neutral-200"
-              onClick={() => {
-                toast.success("hey", { theme: "dark" });
-              }}
+            <Link
+              to={`/blog/view/${blogId}`}
+              className="btn btn-ghost bg-base-300"
             >
-              Read More Here ...
-            </div>
+              Read More
+            </Link>
           </div>
         </div>
       </div>

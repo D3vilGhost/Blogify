@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useAuthContext } from "../context/useAuthContext.js";
+import useAuthContext from "../context/useAuthContext.js";
 
 export default function useLogout() {
   const { setAuthUser } = useAuthContext();
@@ -18,7 +18,7 @@ export default function useLogout() {
         throw new Error(data.error);
       }
 
-      localStorage.removeItem("user-data");
+      localStorage.removeItem("username");
 
       setAuthUser(null);
 
