@@ -3,17 +3,23 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import useSignup from "../hooks/useSignup";
 export default function Signup() {
+  // This Component is Signup Page
+  // Design you both input styles at once from this variable
   const input_style =
-    "text-base px-4 h-12 md:w-1/3 text-wrap text-neutral-800 placeholder:text-neutral-700 placeholder:italic bg-transparent border-2 rounded  ";
+    "text-base px-4 h-12 md:w-1/3 text-wrap text-neutral-800 placeholder:text-neutral-700 placeholder:italic bg-transparent border-2 rounded";
+  // state variables to hold data of form
   const [signupData, setSignupData] = useState({
     username: "",
     password: "",
   });
+  // using signup hook
   const { signup } = useSignup();
+  // this function is called when submit button is clicked
   const handleSignup = async (e) => {
     e.preventDefault();
     await signup(signupData);
   };
+  // main component logic
   return (
     <div className="flex flex-col w-full gap-3 m-2">
       <div className="text-4xl flex items-center gap-2 font-bold">
@@ -24,6 +30,7 @@ export default function Signup() {
       <div className="text-xl font-medium flex gap-2">
         <SquareUserRound size={32} strokeWidth={1.5} /> Username
       </div>
+      {/* input for username */}
       <input
         className={input_style}
         type="text"
@@ -37,6 +44,7 @@ export default function Signup() {
         <Lock size={32} strokeWidth={1.5} />
         Password
       </div>
+      {/* Input for password */}
       <input
         className={input_style}
         type="password"

@@ -3,6 +3,9 @@ import useGetFeed from "../hooks/useGetFeed.js";
 import { useEffect } from "react";
 import useFeedContext from "../context/useFeedContext.js";
 export default function Feeds() {
+  // This component is basically a container component of feed
+  // many individual blogs are shown inside this container
+
   const { getFeed } = useGetFeed();
   const { feedItems } = useFeedContext();
   useEffect(() => {

@@ -3,7 +3,6 @@ import path from "path";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectToMongoDb from "./utils/connectToMongoDb.js";
-import protectRoute from "./utils/protectRoute.js";
 
 import authRouter from "./routes/auth.routes.js";
 import blogRouter from "./routes/blog.routes.js";
@@ -16,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
-app.use("/api/blog", protectRoute, blogRouter);
+app.use("/api/blog", blogRouter);
 app.use("/api/", (req, res) => {
   res.redirect("/");
 });

@@ -4,17 +4,27 @@ import useTheme from "../hooks/useTheme";
 import { useEffect, useState } from "react";
 import useLogout from "../hooks/useLogout";
 export default function NavBar() {
+  // This is the navbar component which is always sits at top of website
+
+  // using uselocation hook to know on which ul currently we are on
+  // this is futher used to alternate between logout button and profile button
+  // based on wheter we are on profile or other part of site
   const location = useLocation();
+  // this hook is used to change theme of site
   const { changeTheme } = useTheme();
+  // using logout hook to logout user
   const { logout } = useLogout();
+  // this function is called when user clicks on logout button
   const handleLogout = async (e) => {
     e.preventDefault();
     await logout();
   };
+  // state variable to hold theme
+  // this logic is used here and not in hook bcs
+  // we will need them to switch between sun and moon icon for theme
   const [lightTheme, setLightTheme] = useState("");
   const [darkTheme, setDarkTheme] = useState("");
-
-  // to set theme when component mounts
+  // to set theme of site when component mounts intially
   useEffect(() => {
     if (document.querySelector("html").getAttribute("data-theme") == "cmyk") {
       setLightTheme("");
@@ -24,7 +34,8 @@ export default function NavBar() {
       setDarkTheme("");
     }
   }, []);
-  // to handle change in theme
+  // to handle change in theme.
+  // this function is called when user clicks on theme icons
   const handleTheme = () => {
     changeTheme();
     if (document.querySelector("html").getAttribute("data-theme") == "cmyk") {
@@ -44,6 +55,7 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="navbar-end gap-2">
+        {/* Sun Icon */}
         <div
           id="light-mode"
           className={`btn btn-ghost btn-circle ${lightTheme}`}
@@ -51,6 +63,7 @@ export default function NavBar() {
         >
           <Sun size={32} strokeWidth={1.5} />
         </div>
+        {/* Moon icon */}
         <div
           className={`btn btn-ghost btn-circle ${darkTheme}`}
           onClick={handleTheme}
@@ -58,6 +71,7 @@ export default function NavBar() {
           <Moon size={32} strokeWidth={1.5} />
         </div>
         <div>
+          {/* Profile icon  */}
           <Link
             to="/profile"
             className={`btn btn-ghost btn-circle ${
@@ -66,6 +80,7 @@ export default function NavBar() {
           >
             <User size={32} strokeWidth={1.5} />
           </Link>
+          {/* Logout icon */}
           <div
             className={` btn btn-ghost btn-circle ${
               location.pathname.startsWith("/profile") ? "" : "hidden"

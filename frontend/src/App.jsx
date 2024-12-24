@@ -1,4 +1,7 @@
 import { Routes, Route, Navigate } from "react-router";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 import NavBar from "./components/NavBar";
 import ViewBlog from "./components/ViewBlog";
 import CreateNewBlog from "./components/CreateNewBlog";
@@ -6,10 +9,10 @@ import Login from "./components/Login.jsx";
 import Signup from "./components/Signup";
 import EditBlog from "./components/EditBlog.jsx";
 import ProfilePage from "./components/ProfilePage.jsx";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import Feeds from "./components/Feeds.jsx";
+
 import useAuthContext from "./context/useAuthContext.js";
+
 export default function App() {
   const { authUser, setAuthUser } = useAuthContext();
 
@@ -38,9 +41,10 @@ export default function App() {
         />
         <Route path="/*" element={<Navigate to="/home" />} />
       </Routes>
+
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={3000}
         limit={0}
         hideProgressBar={false}
         newestOnTop={false}
