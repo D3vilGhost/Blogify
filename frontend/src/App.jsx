@@ -12,9 +12,20 @@ import ProfilePage from "./components/ProfilePage.jsx";
 import Feeds from "./components/Feeds.jsx";
 
 import useAuthContext from "./context/useAuthContext.js";
+import { useMemo } from "react";
 
 export default function App() {
   const { authUser, setAuthUser } = useAuthContext();
+  useMemo(() => {
+    // fetch the username
+    let authUserName = JSON.parse(localStorage.getItem("username")) || null;
+    // if there is username in localstorage set it as object
+    // setting it in this format is important as data is set so when
+    // user signs in or logs in connecting with server
+    if (authUserName) {
+      setAuthUser({ username: authUserName });
+    }
+  }, []);
 
   return (
     <div className="md:w-3/4">

@@ -6,7 +6,7 @@ export default function Signup() {
   // This Component is Signup Page
   // Design you both input styles at once from this variable
   const input_style =
-    "text-base px-4 h-12 md:w-1/3 text-wrap text-neutral-800 placeholder:text-neutral-700 placeholder:italic bg-transparent border-2 rounded";
+    " px-4 h-12 md:w-1/3 text-wrap placeholder:italic bg-transparent border-2 rounded";
   // state variables to hold data of form
   const [signupData, setSignupData] = useState({
     username: "",

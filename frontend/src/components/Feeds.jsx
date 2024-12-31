@@ -1,16 +1,15 @@
 import MiniBlog from "./MiniBlog.jsx";
 import useGetFeed from "../hooks/useGetFeed.js";
-import { useEffect } from "react";
-import useFeedContext from "../context/useFeedContext.js";
+import { useEffect, useState } from "react";
 export default function Feeds() {
   // This component is basically a container component of feed
   // many individual blogs are shown inside this container
 
   const { getFeed } = useGetFeed();
-  const { feedItems } = useFeedContext();
+  const [feedItems, setFeedItems] = useState([]);
   useEffect(() => {
     async function fetchFeed() {
-      await getFeed();
+      setFeedItems(await getFeed());
     }
     fetchFeed();
   }, []);
@@ -19,7 +18,7 @@ export default function Feeds() {
       {feedItems.map((blog) => (
         <div key={blog.blogId}>
           <MiniBlog
-            image={blog.image}
+            image={"/02jpg.jpg"}
             title={blog.title}
             summary={blog.summary}
             date={blog.date}

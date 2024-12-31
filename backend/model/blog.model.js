@@ -4,7 +4,7 @@ const BlogSchema = new mongoose.Schema({
   title: String,
   summary: String,
   content: String,
-  image: String,
+  coverImage: String,
   author: String,
   blogId: { type: String, required: true, unique: true },
   date: { type: String },

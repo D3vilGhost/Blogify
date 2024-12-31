@@ -1,6 +1,6 @@
 import { Newspaper } from "lucide-react";
 import { Link } from "react-router";
-export default function ProfileMiniBlog({ title, summary, blogId = 0 }) {
+export default function ProfileMiniBlog({ title, summary, blogId }) {
   // these miniature blogs are shown on user's profile as blogs user have created
   return (
     // main component logic

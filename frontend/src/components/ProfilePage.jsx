@@ -52,7 +52,11 @@ export default function ProfilePage() {
         {profileData.length != 0 ? (
           profileData.map((blog) => (
             <div key={blog.blogId}>
-              <ProfileMiniBlog title={blog.title} summary={blog.summary} />
+              <ProfileMiniBlog
+                title={blog.title}
+                summary={blog.summary}
+                blogId={blog.blogId}
+              />
             </div>
           ))
         ) : (

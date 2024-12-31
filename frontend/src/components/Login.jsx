@@ -6,7 +6,7 @@ export default function Login() {
   // This Page is Login Page
   // Style your input fields at once from here
   const input_style =
-    "text-base px-4 h-12 md:w-1/3 text-wrap text-neutral-800 placeholder:text-neutral-700 placeholder:italic bg-transparent border-2 rounded  ";
+    " px-4 h-12 md:w-1/3 text-wrap placeholder:italic bg-transparent border-2 rounded";
   // state variables to hold form data
   const [loginData, setLoginData] = useState({
     username: "",
