@@ -13,12 +13,7 @@ export default function useGetProfile() {
         throw new Error(profileData.error);
       }
       // return the received list of authUser created blogs
-      toast.update(toastId, {
-        render: `Profile loaded successfully!`,
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      toast.dismiss(toastId);
       return profileData;
     } catch (error) {
       toast.update(toastId, {

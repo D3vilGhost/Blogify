@@ -1,11 +1,11 @@
 import { Calendar } from "lucide-react";
 import { Link } from "react-router";
-export default function MiniBlog({ image, title, summary, date, blogId }) {
+export default function MiniBlog({ title, summary, date, blogId, coverImage }) {
   return (
     <div>
       <div className="flex flex-row gap-3 m-2 max-h-60">
         <div className=" w-1/3 max-h-50 flex justify-center ">
-          <img src={image} alt="image" />
+          <img src={coverImage} alt="image" />
         </div>
         <div className=" w-2/3 flex flex-col gap-2">
           <div className="text-2xl font-bold">{title}</div>

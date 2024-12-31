@@ -36,7 +36,7 @@ async function createNewBlog(req, res) {
     // unique blogid = author+timestamp
     const blogId = author + Date.now().toString();
     // passing the blogId as fileName of image
-    // it will help later to fetch based on blogId
+    // it will help to maintain uniqeness of image name
     // no extension as cloudinary will do it automatically
     const fileURL = await uploadOnCloudinary(localImagePath, blogId);
     const currentDate = new Date();
@@ -67,6 +67,7 @@ async function createNewBlog(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
 async function editExistingBlog(req, res) {
   try {
   } catch (error) {}

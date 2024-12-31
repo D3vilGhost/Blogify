@@ -18,11 +18,11 @@ export default function Feeds() {
       {feedItems.map((blog) => (
         <div key={blog.blogId}>
           <MiniBlog
-            image={"/02jpg.jpg"}
             title={blog.title}
             summary={blog.summary}
             date={blog.date}
             blogId={blog.blogId}
+            coverImage={blog.coverImage}
           />
         </div>
       ))}

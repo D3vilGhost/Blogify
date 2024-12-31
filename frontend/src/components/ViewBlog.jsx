@@ -13,10 +13,7 @@ export default function ViewBlog() {
   // state variable to fetch blog's details
   const [blogData, setBlogData] = useState({
     // image: "/02jpg.jpg",
-    title: "",
-    content: "",
-    author: "",
-    date: "0/0/0",
+    title: "Loading Your Blog...",
   });
   // useEffect is used to load blog details as soon as component mounts
   useEffect(() => {
@@ -37,8 +34,7 @@ export default function ViewBlog() {
         {blogData.title}
       </div>
       <div className="w-full flex justify-center items-center">
-        <img src="/02jpg.jpg" alt="image" className="w-2/3" />
-        {/* <img src={blogData.image} alt="image" className="w-2/3" /> */}
+        <img src={blogData.coverImage} alt="image" className="w-2/3" />
       </div>
       <div className="flex text-justify">{blogData.content}</div>
       <div className="w-full flex justify-end text-neutral-500">

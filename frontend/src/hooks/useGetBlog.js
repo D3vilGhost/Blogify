@@ -11,13 +11,8 @@ export default function useGetBlog() {
       if (blogData.error) {
         throw new Error(blogData.error);
       }
-      // update the loading toast in case of no failue
-      toast.update(toastId, {
-        render: `Blog Loaded`,
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      // dismiss the loading toast in case of no failue
+      toast.dismiss(toastId);
       // return data to be rendered
       return blogData;
     } catch (error) {
