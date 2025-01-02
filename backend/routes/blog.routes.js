@@ -2,7 +2,7 @@ import express from "express";
 import Blog from "../model/blog.model.js";
 import protectRoute from "../utils/protectRoute.js";
 import { upload } from "../utils/fileUploader.js";
-import uploadOnCloudinary from "../utils/cloudinary.js";
+import { uploadOnCloudinary, deleteOnCloudinary } from "../utils/cloudinary.js";
 
 const router = express.Router();
 
@@ -70,7 +70,32 @@ async function createNewBlog(req, res) {
 
 async function editExistingBlog(req, res) {
   try {
-  } catch (error) {}
+    const newBlogData = req.body;
+    const author = req.username;
+    const localImagePath = req.file.path;
+    const deleteResult = await deleteOnCloudinary(`${newBlogData.blogId}`);
+    if (!deleteResult) {
+      throw new Error("File Deletion On Cloud Failed.");
+    }
+    const fileURL = await uploadOnCloudinary(
+      localImagePath,
+      `${newBlogData.blogId}`
+    );
+    if (!fileURL) {
+      throw new Error("File Uploading Failed!");
+    }
+    newBlogData.coverImage = fileURL;
+    await Blog.findOneAndUpdate({ blogId: newBlogData.blogId }, newBlogData);
+    return res
+      .status(200)
+      .json({
+        message: "Blog Updated Successfully!",
+        blogId: newBlogData.blogId,
+      });
+  } catch (error) {
+    console.log(`Error in editExistingBlog: ${error.message}`);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 async function getFeed(req, res) {
   try {

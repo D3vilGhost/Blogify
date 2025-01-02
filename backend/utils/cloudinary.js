@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-export default async function uploadOnCloudinary(localFilePath, fileName) {
+async function uploadOnCloudinary(localFilePath, fileName) {
   // Configuration
   try {
     if (!localFilePath) {
@@ -34,3 +34,24 @@ export default async function uploadOnCloudinary(localFilePath, fileName) {
     fs.unlinkSync(localFilePath);
   }
 }
+
+async function deleteOnCloudinary(fileName) {
+  try {
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+    const deleteResult = await cloudinary.uploader
+      .destroy(fileName)
+      .catch((error) => {
+        throw new Error(error);
+      });
+    return true;
+  } catch (error) {
+    console.log(`Error in deleteOnCloudinary: ${error.message}`);
+    return false;
+  }
+}
+
+export { uploadOnCloudinary, deleteOnCloudinary };

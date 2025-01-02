@@ -1,21 +1,27 @@
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 export default function useEditBlog() {
   const navigate = useNavigate();
-  // this hook is used when Editing existing blogs
-
-  const editBlog = async (blogData) => {
-    // do a contraint check on blogData
-    const success = constraintCheckOnBlogData(blogData);
+  const location = useLocation();
+  // this hook is used when editing existing blogs
+  const editBlog = async (formData) => {
+    // do a contraint check on formData
+    const success = constraintCheckOnBlogData(formData);
     if (!success) return;
     // set the loading toast
     const toastId = toast.loading("Updating Blog...");
     try {
+      // setting the blogId in formData for use in backend
+      // get the pathname and split by "/"
+      // this gives ["blog","edit","blogId"]
+      // .pop() returns last element which is blogId
+      formData.append("blogId", location.pathname.split("/").pop());
       // call api to create blog
+      // no headers are set as data type is formData
+      // it automatically set Content-Type to "multipart/form-data"
       const res = await fetch("/api/blog/edit", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(blogData),
+        body: formData,
       });
       // convert the response receive in json format
       const data = await res.json();
@@ -24,7 +30,7 @@ export default function useEditBlog() {
       }
       // update the loading toast in case of no failue
       toast.update(toastId, {
-        render: `Blog Updated successfully`,
+        render: `Blog Updated !`,
         type: "success",
         isLoading: false,
         autoClose: 3000,
@@ -44,25 +50,44 @@ export default function useEditBlog() {
   return { editBlog };
 }
 
-function constraintCheckOnBlogData(blogData) {
-  const keys = Object.keys(blogData);
-  // Empty value check
-  keys.forEach((key) => {
-    if (blogData[key] == "") {
-      toast.error("Details Missing in some fields.");
-      return false;
+function constraintCheckOnBlogData(formData) {
+  try {
+    const blogData = Object.fromEntries(formData.entries());
+    const keys = Object.keys(blogData);
+    // Empty value check
+    keys.forEach((key) => {
+      if (key != "coverImage" && blogData[key] == "") {
+        throw new Error("Fill details in all the fields.");
+      }
+    });
+    // Title check
+    if (blogData.title.length > 50) {
+      throw new Error("Title is too long.");
     }
-  });
-  // Title check
-  if (blogData.title.length > 50) {
-    toast.error("Title size too long");
+    // Summary Check
+    if (blogData.summary.length > 100) {
+      throw new Error("Summary is too long.");
+    }
+    // File Availablity check
+    if (!blogData.coverImage.name) {
+      throw new Error("No Cover Image Available");
+    }
+    // fileType = Image check
+    const fileName = blogData.coverImage.name;
+    const fileExtension = fileName.substr(
+      fileName.lastIndexOf("."),
+      fileName.length
+    );
+    if (
+      fileExtension != ".jpg" &&
+      fileExtension != ".jpeg" &&
+      fileExtension != ".png"
+    ) {
+      throw new Error("Upload Only PNG/JPG/JPEG files");
+    }
+    return true;
+  } catch (error) {
+    toast.error(error.message);
     return false;
   }
-  // Summary Check
-  if (blogData.summary.length > 150) {
-    toast.error("Summary size too long");
-    return false;
-  }
-
-  return true;
 }
