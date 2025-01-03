@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 export default function useGetBlog() {
   const getBlog = async (blogId) => {
     // set the loading toast
-    const toastId = toast.loading("Loading Blog...");
+    const toastId = toast.loading("Loading Blog Details...");
     try {
       // call api to create blog
       const res = await fetch(`/api/blog/${blogId}`);

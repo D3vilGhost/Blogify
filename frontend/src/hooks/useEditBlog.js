@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 export default function useEditBlog() {
   const navigate = useNavigate();
-  const location = useLocation();
   // this hook is used when editing existing blogs
   const editBlog = async (formData) => {
     // do a contraint check on formData
@@ -11,11 +10,6 @@ export default function useEditBlog() {
     // set the loading toast
     const toastId = toast.loading("Updating Blog...");
     try {
-      // setting the blogId in formData for use in backend
-      // get the pathname and split by "/"
-      // this gives ["blog","edit","blogId"]
-      // .pop() returns last element which is blogId
-      formData.append("blogId", location.pathname.split("/").pop());
       // call api to create blog
       // no headers are set as data type is formData
       // it automatically set Content-Type to "multipart/form-data"
