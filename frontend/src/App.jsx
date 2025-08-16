@@ -25,7 +25,7 @@ export default function App() {
     if (authUserName) {
       setAuthUser({ username: authUserName });
     }
-  }, []);
+  }, [localStorage.getItem("username")]);
 
   return (
     <div className="md:w-3/4">

@@ -1,13 +1,16 @@
 import { AtSign, SquarePlus } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import ProfileMiniBlog from "./ProfileMiniBlog";
 import useGetProfile from "../hooks/useGetProfile";
 import useAuthContext from "../context/useAuthContext";
+function hasJwtCookie() {
+  return document.cookie.split('; ').some(row => row.startsWith('jwt='));
+}
 export default function ProfilePage() {
   // this is the profile page where user's profile is shown
   // authUser Context is required to know the user for greeting him
-  const { authUser } = useAuthContext();
+  const { authUser, setAuthUser } = useAuthContext();
   // use of profile hook which will fetch all user created blogs
   const { getProfile } = useGetProfile();
   // state variables are used to store the hook's fetched results
