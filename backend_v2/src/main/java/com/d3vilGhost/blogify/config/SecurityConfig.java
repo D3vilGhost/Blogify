@@ -50,7 +50,7 @@ public class SecurityConfig {
         http
                 .csrf(csrfToken -> csrfToken.disable())
                 .authorizeHttpRequests(requests -> requests
-                        // below one need to be authenticated as they needs jwt token
+                        // below one need to be authenticated as they need jwt token
                         .requestMatchers("/api/blog/create").authenticated()
                         .requestMatchers("/api/blog/edit").authenticated()
                         .requestMatchers("/api/auth/profile").authenticated()
