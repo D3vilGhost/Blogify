@@ -59,28 +59,26 @@ public class BlogService {
         }
     }
 
-    public ResponseEntity<?> editBlog(String author, BlogRequest blogRequest){
+    public ResponseEntity<?> editBlog(String author, BlogRequest blogRequest, MultipartFile image, String blogId){
         try {
-            BlogModel newBlog=new BlogModel();
-//            newBlog.setBlogId(blogRequest.getBlogId());// use prvs blogid
+            Optional<BlogModel> oldBlog=blogRepository.findByBlogId(blogId);
+            BlogModel newBlog=oldBlog.get();
+
             newBlog.setTitle(blogRequest.getTitle());
             newBlog.setSummary(blogRequest.getSummary());
             newBlog.setContent(blogRequest.getContent());
-            newBlog.setAuthor(author);
-            // update to new date
-            newBlog.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+"( Edited )");
-//            String fileUrl = imageUploadService.uploadImage(
-//                    blogRequest.getCoverImage(),
-//                    newBlog.getBlogId()
-//            );
-//            newBlog.setCoverImage(fileUrl);
+            String fileUrl = imageUploadService.uploadImage(
+                    image,
+                    newBlog.getBlogId()
+            );
+            newBlog.setCoverImage(fileUrl);
             blogRepository.save(newBlog);
             return ResponseEntity
-                    .status(HttpStatus.CREATED)
+                    .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(Map.of(
                             "message","Blog Updated Successfully!",
-                            "blogId", newBlog.getBlogId()
+                            "blogId", blogId
                     ));
 
         } catch (Exception e) {

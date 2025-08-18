@@ -44,16 +44,29 @@ public class BlogController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Internal Server Error"));
         }
-
     }
 
-    @PostMapping("/edit")
+    @PutMapping(value = "/edit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> editExistingBlog(
             @AuthenticationPrincipal User user,
-            @RequestBody BlogRequest blogRequest
+            @RequestPart("blogId") String blogId,
+            @RequestPart("title") String title,
+            @RequestPart("summary") String summary,
+            @RequestPart("content") String content,
+            @RequestPart("coverImage") MultipartFile image
     ){
         try {
-            return blogService.editBlog(user.getUsername(),blogRequest);
+            if(title.isBlank() || summary.isBlank() || content.isBlank()){
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(Map.of("error","Please fill all the fields."));
+            }
+            BlogRequest blogRequest=new BlogRequest();
+            blogRequest.setTitle(title);
+            blogRequest.setSummary(summary);
+            blogRequest.setContent(content);
+            return blogService.editBlog(user.getUsername(),blogRequest,image,blogId);
         } catch (Exception e) {
             System.out.println("Error in editExistingBlog controller: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

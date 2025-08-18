@@ -23,7 +23,8 @@ export default function useGetBlog() {
         isLoading: false,
         autoClose: 3000,
       });
+      return null;
     }
   };
-  return { getBlog };
+  return {getBlog};
 }

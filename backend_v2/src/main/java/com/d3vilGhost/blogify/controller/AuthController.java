@@ -75,6 +75,7 @@ public class AuthController {
         try {
             // can do this in service layer but leaving doing it in control layer
             Cookie cookie = new Cookie("jwt", "");
+            cookie.setPath("/");
             cookie.setMaxAge(0); // Immediately expire
             cookie.setHttpOnly(true); // if you used httpOnly before
             response.addCookie(cookie);

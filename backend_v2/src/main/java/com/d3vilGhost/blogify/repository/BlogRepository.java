@@ -6,11 +6,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface BlogRepository extends MongoRepository<BlogModel,String> {
-    @Query(value="{ 'blogId': ?0 }", fields = "{'_id': 0, 'blogId': 0, '__v':0 }")
+    @Query(value="{ 'blogId': ?0 }", fields = "{'__v':0 }")
     Optional<BlogModel> findByBlogId(String blogId);
-    Optional<ProfileBlogResponse> findByAuthor(String author);
+    List<ProfileBlogResponse> findByAuthor(String author);
 }

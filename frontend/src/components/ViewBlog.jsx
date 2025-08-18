@@ -23,7 +23,13 @@ export default function ViewBlog() {
       // get the pathname and split by "/"
       // this gives ["blog","view","blogId"]
       // .pop() returns last element which is blogId
-      setBlogData(await getBlog(location.pathname.split("/").pop()));
+      const data=await getBlog(location.pathname.split("/").pop());
+      if(data==null){
+        window.location.href="/home";
+      }
+      else{
+        setBlogData(data);
+      }
     }
     getBlogData();
   }, []);

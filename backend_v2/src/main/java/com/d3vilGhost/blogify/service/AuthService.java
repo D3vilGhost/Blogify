@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -88,7 +89,7 @@ public class AuthService {
     }
 
     public ResponseEntity<?> getProfile(String username){
-        Optional<ProfileBlogResponse> userProfile = blogRepository.findByAuthor(username);
+        List<ProfileBlogResponse> userProfile = blogRepository.findByAuthor(username);
         if(userProfile.isEmpty()){
             return ResponseEntity
                     .status(HttpStatus.OK)

@@ -7,7 +7,7 @@ export default function EditBlog() {
   // this page is for editing existing blogs
   // change this variable to style all the input field design at once
   const input_style =
-    "text-base px-4 md:w-2/3 text-wrap text-neutral-800 placeholder:text-neutral-700 placeholder:italic bg-transparent border-2 rounded  ";
+    "px-4 md:w-2/3 text-wrap placeholder:italic bg-transparent border-2 rounded";
   // this hook is used to get blogId from url
   const location = useLocation();
   // use of hook to edit blog

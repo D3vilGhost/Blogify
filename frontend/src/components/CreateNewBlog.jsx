@@ -4,7 +4,7 @@ export default function CreateNewBlog() {
   // this Page is for creating new blogs
   // here change this variable to style all the input field design at once
   const input_style =
-    "px-4 md:w-2/3 text-wrap placeholder:italic bg-transparent border-2 rounded  ";
+    "px-4 md:w-2/3 text-wrap placeholder:italic bg-transparent border-2 rounded";
   // use of hook to create blog
   const { createBlog } = useCreateBlog();
   // this function is called when user clicks submit button

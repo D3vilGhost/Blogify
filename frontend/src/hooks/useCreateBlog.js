@@ -55,11 +55,11 @@ function constraintCheckOnBlogData(formData) {
       }
     });
     // Title check
-    if (blogData.title.length > 50) {
+    if (blogData.title.length > 100) {
       throw new Error("Title is too long.");
     }
     // Summary Check
-    if (blogData.summary.length > 100) {
+    if (blogData.summary.length > 300) {
       throw new Error("Summary is too long.");
     }
     // File Availablity check
